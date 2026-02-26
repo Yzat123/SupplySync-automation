@@ -19,6 +19,11 @@ public class BaseUI {
         element.click();
     }
 
+    public void waitAndSendKeys(WebElement element, String keys){
+        waitUntilVisible(20, element);
+        element.sendKeys(keys);
+    }
+
     public void clearAndSendKeys(WebElement element, String keys) {
         waitUntilVisible(20, element);
         element.clear();
