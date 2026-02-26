@@ -1,7 +1,7 @@
-package MastersPage;
+package pages;
 
-import Utils.BaseUI;
-import Utils.Driver;
+import utils.BaseUI;
+import utils.Driver;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
