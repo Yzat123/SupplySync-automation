@@ -1,7 +1,9 @@
 package tests;
 
 import Pages.ProjectLoginPage;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -11,12 +13,23 @@ import utils.BaseUI;
 import utils.Driver;
 
 public class ProjectLoginTest extends BaseUI {
-    WebDriver driver = Driver.getDriver();
-    ProjectLoginPage loginPage = new ProjectLoginPage();
+    WebDriver driver;
+    ProjectLoginPage projectLoginPage;
+
+    @BeforeEach
+    public void setUpTest() {
+        driver = Driver.getDriver();
+        projectLoginPage = new ProjectLoginPage();
+    }
+
+    @AfterEach
+    public void closeDriver() {
+        Driver.closeDriver();
+    }
 
     @Test
     public void successfulLoginTest() {
-        loginPage.login("admin@codewise.com", "codewise123");
+        projectLoginPage.login("admin@codewise.com", "codewise123");
 
         explicitWait(20).until(ExpectedConditions.urlContains("dashboard"));
         Assertions.assertTrue(driver.getCurrentUrl().contains("dashboard"));
@@ -24,49 +37,49 @@ public class ProjectLoginTest extends BaseUI {
 
     @Test
     public void invalidEmail() {
-        loginPage.login("admin@codewi14.com", "codewise123");
-        waitUntilVisible(10, loginPage.invalidCredentialsMessage);
-        Assertions.assertTrue(loginPage.invalidCredentialsMessage.isDisplayed());
+        projectLoginPage.login("admin@codewi14.com", "codewise123");
+        waitUntilVisible(10, projectLoginPage.invalidCredentialsMessage);
+        Assertions.assertTrue(projectLoginPage.invalidCredentialsMessage.isDisplayed());
 
 
     }
 
     @Test
     public void invalidPassword() {
-        loginPage.login("admin@codewi14.com", "codewise45");
-        waitUntilVisible(10, loginPage.invalidCredentialsMessage);
-        Assertions.assertTrue(loginPage.invalidCredentialsMessage.isDisplayed());
+        projectLoginPage.login("admin@codewi14.com", "codewise45");
+        waitUntilVisible(10, projectLoginPage.invalidCredentialsMessage);
+        Assertions.assertTrue(projectLoginPage.invalidCredentialsMessage.isDisplayed());
 
 
     }
     @Test
     public void emptyPasswordField() {
-        loginPage.login("admin@codewi14.com", "");
-        waitUntilVisible(10, loginPage.invalidCredentialsMessage);
-        Assertions.assertTrue(loginPage.invalidCredentialsMessage.isDisplayed());
+        projectLoginPage.login("admin@codewi14.com", "");
+        waitUntilVisible(10, projectLoginPage.invalidCredentialsMessage);
+        Assertions.assertTrue(projectLoginPage.invalidCredentialsMessage.isDisplayed());
 
 
     }
     @Test
     public void emptyEmailField() {
-        loginPage.login("", "codewise123");
-        waitUntilVisible(10, loginPage.invalidCredentialsMessage);
-        Assertions.assertTrue(loginPage.invalidCredentialsMessage.isDisplayed());
+        projectLoginPage.login("", "codewise123");
+        waitUntilVisible(10, projectLoginPage.invalidCredentialsMessage);
+        Assertions.assertTrue(projectLoginPage.invalidCredentialsMessage.isDisplayed());
 
 
     }
     @Test
     public void bothEmptyField() {
-        loginPage.login("", "");
-        waitUntilVisible(10, loginPage.invalidCredentialsMessage);
-        Assertions.assertTrue(loginPage.invalidCredentialsMessage.isDisplayed());
-  }
+        projectLoginPage.login("", "");
+        waitUntilVisible(10, projectLoginPage.invalidCredentialsMessage);
+        Assertions.assertTrue(projectLoginPage.invalidCredentialsMessage.isDisplayed());
+    }
     @Test
     public void adminIsAbleToLogout() {
-        loginPage.login("admin@codewise.com", "codewise123");
+        projectLoginPage.login("admin@codewise.com", "codewise123");
         explicitWait(20).until(ExpectedConditions.urlContains("dashboard"));
         Assertions.assertTrue(driver.getCurrentUrl().contains("dashboard"));
-        loginPage.logout();
+        projectLoginPage.logout();
         Assertions.assertTrue(driver.getCurrentUrl().contains("/login"));
     }
 

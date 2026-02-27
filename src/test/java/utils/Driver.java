@@ -67,6 +67,12 @@ public class Driver {
 
         return driver;
     }
+    public static void closeDriver() {
+        if (driver != null) {      // si el driver existe
+            driver.quit();          // cierra el navegador
+            driver = null;          // reinicia para futuras llamadas
+        }
+    }
 }
 
 

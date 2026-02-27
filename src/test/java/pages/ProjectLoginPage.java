@@ -39,12 +39,14 @@ public class ProjectLoginPage {
     public  WebElement logOut;
 
     public void login(String username, String password){
-        driver.get("https://supplysync.us/login");
+        String loginPageURL = "https://supplysync.us";
+        driver.get(loginPageURL);
+
 
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
-        wait.until(ExpectedConditions.visibilityOf(email));
+        wait.until(ExpectedConditions.visibilityOf(this.email));
 
-        email.sendKeys(username);
+        this.email.sendKeys(username);
         this.password.sendKeys(password);
         loginButton.click();
 
@@ -55,6 +57,7 @@ public class ProjectLoginPage {
         logOut.click();
     }
 }
+
 
 
 
