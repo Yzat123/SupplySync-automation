@@ -1,4 +1,4 @@
-package pages;
+package Pages;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -13,7 +13,7 @@ import java.time.Duration;
 public class ProjectLoginPage {
     WebDriver driver = Driver.getDriver();
 
-    public ProjectLoginPage() {
+    public ProjectLoginPage(){
         PageFactory.initElements(driver, this);
     }
 
@@ -30,31 +30,31 @@ public class ProjectLoginPage {
     public WebElement invalidCredentialsMessage;
 
     @FindBy(xpath = "//p[text()='Administrator']")
-    public WebElement administrator;
+    public  WebElement administrator;
 
     @FindBy(xpath = "//li[text()='Exit']")
-    public WebElement clickExit;
+    public  WebElement clickExit;
 
     @FindBy(xpath = "//button[text()='Exit']")
-    public WebElement logOut;
+    public  WebElement logOut;
 
-    public void login(String username, String password) {
-        String loginPageURL = "https://supplysync.us";
-        driver.get(loginPageURL);
-
+    public void login(String username, String password){
+        driver.get("https://supplysync.us/login");
 
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
-        wait.until(ExpectedConditions.visibilityOf(this.email));
+        wait.until(ExpectedConditions.visibilityOf(email));
 
-        this.email.sendKeys(username);
+        email.sendKeys(username);
         this.password.sendKeys(password);
         loginButton.click();
 
     }
-
     public void logout() {
         administrator.click();
         clickExit.click();
         logOut.click();
     }
 }
+
+
+
